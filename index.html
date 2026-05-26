@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nexel — Lo que necesitás, cuando lo necesitás</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue-deep:   #0a2540;
+      --blue-mid:    #1a5fa8;
+      --blue-bright: #2d8ef0;
+      --sky:         #6ec6f5;
+      --white:       #ffffff;
+      --off-white:   #f4f8fd;
+      --gray-light:  #e8f0f9;
+      --gray-text:   #6b7f99;
+      --wa-green:    #25d366;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--white);
+      color: var(--blue-deep);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--gray-light);
+      padding: 0 6vw;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800; font-size: 1.55rem;
+      color: var(--blue-mid);
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--blue-bright); }
+
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: .9rem; font-weight: 500;
+      color: var(--blue-deep); text-decoration: none;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--blue-bright); }
+
+    .nav-social { display: flex; gap: .75rem; align-items: center; }
+    .nav-social a {
+      display: flex; align-items: center; justify-content: center;
+      width: 34px; height: 34px; border-radius: 50%;
+      background: var(--gray-light); color: var(--blue-mid);
+      text-decoration: none; transition: background .2s, color .2s;
+    }
+    .nav-social a:hover { background: var(--blue-mid); color: var(--white); }
+    .nav-social svg { width: 16px; height: 16px; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; overflow: hidden;
+      background: linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-mid) 60%, var(--blue-bright) 100%);
+      min-height: 88vh;
+      display: flex; align-items: center;
+      padding: 6rem 6vw 4rem;
+    }
+
+    .hero-bg-circle {
+      position: absolute; border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .hero-bg-circle.c1 { width: 600px; height: 600px; top: -200px; right: -100px; }
+    .hero-bg-circle.c2 { width: 300px; height: 300px; bottom: -80px; left: 10%; background: rgba(110,198,245,0.12); }
+
+    .hero-content { position: relative; z-index: 1; max-width: 600px; }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: var(--sky);
+      font-size: .78rem; font-weight: 600; letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: .35rem .9rem; border-radius: 99px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 800; line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 1rem;
+    }
+    .hero h1 em { font-style: normal; color: var(--sky); }
+
+    .hero-sub {
+      font-size: 1.1rem; font-weight: 300;
+      color: rgba(255,255,255,.75);
+      line-height: 1.6; margin-bottom: 2.5rem;
+      max-width: 460px;
+    }
+
+    .hero-cta {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: var(--wa-green); color: var(--white);
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem;
+      padding: .9rem 2rem; border-radius: 99px;
+      text-decoration: none;
+      box-shadow: 0 8px 30px rgba(37,211,102,.4);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(37,211,102,.5); }
+
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-top: 3rem;
+    }
+    .stat-item { }
+    .stat-num {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.8rem;
+      color: var(--white);
+    }
+    .stat-label {
+      font-size: .8rem; color: rgba(255,255,255,.6); margin-top: .1rem;
+    }
+
+    /* ── CATEGORIES ── */
+    .section { padding: 5rem 6vw; }
+    .section-label {
+      font-size: .75rem; font-weight: 600; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--blue-bright);
+      margin-bottom: .6rem;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 800; color: var(--blue-deep);
+      margin-bottom: 2.5rem;
+    }
+
+    .cats {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .cat-btn {
+      padding: .55rem 1.3rem;
+      border-radius: 99px;
+      border: 2px solid var(--gray-light);
+      background: var(--white);
+      font-family: 'DM Sans', sans-serif; font-size: .9rem; font-weight: 500;
+      color: var(--gray-text);
+      cursor: pointer; transition: all .2s;
+    }
+    .cat-btn.active, .cat-btn:hover {
+      background: var(--blue-mid); border-color: var(--blue-mid);
+      color: var(--white);
+    }
+
+    /* ── PRODUCTS GRID ── */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .product-card {
+      background: var(--white);
+      border: 1.5px solid var(--gray-light);
+      border-radius: 18px;
+      overflow: hidden;
+      transition: transform .25s, box-shadow .25s, border-color .25s;
+      display: flex; flex-direction: column;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(26,95,168,.12);
+      border-color: var(--blue-bright);
+    }
+
+    .product-img {
+      width: 100%; aspect-ratio: 1;
+      object-fit: cover;
+      background: var(--off-white);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem;
+    }
+
+    .product-body { padding: 1.2rem 1.2rem 1.4rem; flex: 1; display: flex; flex-direction: column; }
+    .product-cat {
+      font-size: .7rem; font-weight: 600; letter-spacing: 1.2px;
+      text-transform: uppercase; color: var(--blue-bright); margin-bottom: .4rem;
+    }
+    .product-name {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.05rem;
+      color: var(--blue-deep); line-height: 1.3; margin-bottom: .5rem;
+    }
+    .product-desc {
+      font-size: .85rem; color: var(--gray-text);
+      line-height: 1.5; flex: 1; margin-bottom: 1rem;
+    }
+    .product-footer { display: flex; align-items: center; justify-content: space-between; }
+    .product-price {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem;
+      color: var(--blue-mid);
+    }
+
+    .btn-wa {
+      display: inline-flex; align-items: center; gap: .4rem;
+      background: var(--wa-green); color: var(--white);
+      font-size: .82rem; font-weight: 600;
+      padding: .5rem 1rem; border-radius: 99px;
+      text-decoration: none;
+      transition: transform .15s, opacity .15s;
+    }
+    .btn-wa:hover { opacity: .88; transform: scale(1.04); }
+    .btn-wa svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+    /* ── BANNER ── */
+    .banner {
+      margin: 0 6vw 5rem;
+      background: linear-gradient(120deg, var(--blue-deep), var(--blue-mid));
+      border-radius: 24px;
+      padding: 3rem 4rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 2rem; flex-wrap: wrap;
+      position: relative; overflow: hidden;
+    }
+    .banner::after {
+      content: '';
+      position: absolute; right: -60px; top: -60px;
+      width: 260px; height: 260px; border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+    }
+    .banner-text h2 {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.7rem;
+      color: var(--white); margin-bottom: .4rem;
+    }
+    .banner-text p { color: rgba(255,255,255,.7); font-size: .95rem; }
+    .banner-cta {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: var(--white); color: var(--blue-mid);
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: .95rem;
+      padding: .85rem 1.8rem; border-radius: 99px;
+      text-decoration: none; white-space: nowrap;
+      transition: transform .2s;
+      flex-shrink: 0;
+    }
+    .banner-cta:hover { transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--blue-deep); color: rgba(255,255,255,.65);
+      padding: 3.5rem 6vw 2rem;
+    }
+    .footer-top {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 2rem; flex-wrap: wrap; margin-bottom: 2.5rem;
+    }
+    .footer-brand .nav-logo { color: var(--white); display: block; margin-bottom: .6rem; }
+    .footer-brand p { font-size: .88rem; line-height: 1.6; max-width: 260px; }
+    .footer-links h4 {
+      font-family: 'Syne', sans-serif; font-weight: 700; font-size: .95rem;
+      color: var(--white); margin-bottom: 1rem;
+    }
+    .footer-links ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .footer-links a { color: rgba(255,255,255,.6); text-decoration: none; font-size: .88rem; transition: color .2s; }
+    .footer-links a:hover { color: var(--sky); }
+    .footer-socials { display: flex; gap: .75rem; margin-top: 1rem; }
+    .footer-socials a {
+      display: flex; align-items: center; justify-content: center;
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255,255,255,.1); color: var(--white);
+      text-decoration: none; transition: background .2s;
+    }
+    .footer-socials a:hover { background: var(--blue-bright); }
+    .footer-socials svg { width: 17px; height: 17px; }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,.1);
+      padding-top: 1.5rem; font-size: .82rem; text-align: center;
+    }
+
+    /* ── FLOATING WA ── */
+    .float-wa {
+      position: fixed; bottom: 1.8rem; right: 1.8rem; z-index: 999;
+      display: flex; align-items: center; gap: .6rem;
+      background: var(--wa-green); color: var(--white);
+      font-weight: 700; font-size: .9rem;
+      padding: .8rem 1.4rem; border-radius: 99px;
+      text-decoration: none;
+      box-shadow: 0 8px 32px rgba(37,211,102,.45);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .float-wa:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(37,211,102,.55); }
+    .float-wa svg { width: 20px; height: 20px; }
+    .float-wa-text { display: none; }
+    @media (min-width: 500px) { .float-wa-text { display: inline; } }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 700px) {
+      nav { padding: 0 4vw; }
+      .nav-links { display: none; }
+      .hero { padding: 4rem 4vw 3rem; min-height: 70vh; }
+      .hero-stats { gap: 1.5rem; }
+      .section { padding: 3.5rem 4vw; }
+      .banner { padding: 2rem 1.8rem; margin: 0 4vw 3.5rem; }
+      footer { padding: 2.5rem 4vw 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Nex<span>el</span></a>
+  <ul class="nav-links">
+    <li><a href="#productos">Productos</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <div class="nav-social">
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/nexel.uy" target="_blank" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+      </svg>
+    </a>
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/share/1Ding9LzJe/" target="_blank" aria-label="Facebook">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+      </svg>
+    </a>
+    <!-- WhatsApp -->
+    <a href="https://wa.me/59897222202?text=Hola%20Nexel%2C%20quisiera%20consultar%20sobre%20un%20producto" target="_blank" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+      </svg>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-circle c1"></div>
+  <div class="hero-bg-circle c2"></div>
+  <div class="hero-content">
+    <span class="hero-badge">Tienda Online · Uruguay</span>
+    <h1>Lo que <em>necesitás</em>,<br>cuando lo necesitás</h1>
+    <p class="hero-sub">Bazar, hogar, tecnología y mucho más. Consultá por WhatsApp y recibí atención personalizada al instante.</p>
+    <a href="https://wa.me/59897222202?text=Hola%20Nexel%2C%20quisiera%20ver%20los%20productos%20disponibles" target="_blank" class="hero-cta">
+      <svg viewBox="0 0 24 24" fill="currentColor" style="width:20px;height:20px">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+      </svg>
+      Consultar por WhatsApp
+    </a>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Atención personalizada</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">+50</div>
+        <div class="stat-label">Productos disponibles</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">UY</div>
+        <div class="stat-label">Envíos a todo el país</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section" id="productos">
+  <p class="section-label">Catálogo</p>
+  <h2 class="section-title">Nuestros productos</h2>
+
+  <!-- Category filters -->
+  <div class="cats">
+    <button class="cat-btn active" onclick="filterCat('todos', this)">Todos</button>
+    <button class="cat-btn" onclick="filterCat('bazar', this)">Bazar</button>
+    <button class="cat-btn" onclick="filterCat('hogar', this)">Hogar</button>
+    <button class="cat-btn" onclick="filterCat('tecnologia', this)">Tecnología</button>
+    <button class="cat-btn" onclick="filterCat('ofertas', this)">Ofertas 🔥</button>
+  </div>
+
+  <div class="products-grid" id="grid">
+
+    <!-- BAZAR -->
+    <div class="product-card" data-cat="bazar">
+      <div class="product-img">🍽️</div>
+      <div class="product-body">
+        <span class="product-cat">Bazar</span>
+        <div class="product-name">Set de Vasos Vidrio x6</div>
+        <div class="product-desc">Juego de 6 vasos de vidrio templado, elegantes y resistentes. Ideales para el uso diario.</div>
+        <div class="product-footer">
+          <span class="product-price">$390</span>
+          <a class="btn-wa" href="https://wa.me/59897222202?text=Hola%20Nexel%2C%20me%20interesa%20el%20Set%20de%20Vasos%20Vidrio%20x6.%20%C2%BFEst%C3%A1%20disponible%3F" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            Consultar
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="bazar ofertas">
+      <div class="product-img">☕</div>
+      <div class="product-body">
+        <span class="product-cat">Bazar · 🔥 Oferta</span>
+        <div class="product-name">Jarra Térmica 1.5L</div>
+        <div class="product-desc">Mantiene la temperatura por hasta 8 horas. Tapa hermética y asa ergonómica.</div>
+        <div class="product-footer">
+          <span class="product-price">$550</span>
+          <a class="btn-wa" href="https://wa.me/59897222202?text=Hola%20Nexel%2C%20me%20interesa%20la%20Jarra%20T%C3%A9rmica%201.5L.%20%C2%BFEst%C3%A1%20disponible%3F" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            Consultar
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOGAR -->
+    <div class="product-card" data-cat="hogar">
+      <div class="product-img">💡</div>
+      <div class="product-body">
+        <span class="product-cat">Hogar</span>
+        <div class="product-name">Lámpara LED de Escritorio</div>
+        <div class="product-desc">Con brazo flexible, 3 niveles de brillo y puerto USB de carga. Perfecta para el home office.</div>
+        <div class="product-footer">
+          <span class="product-price">$890</span>
+          <a class="btn-wa" href="https://wa.me/59897222202?text=Hola%20Nexel%2C%20me%20interesa%20la%20L%C3%A1mpara%20LED%20de%20Escritorio.%20%C2%BFEst%C3%A1%20disponible%3F" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            Consultar
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="hogar ofertas">
+      <div class="product-img">🧴</div>
+      <div class="product-body">
+        <span class="product-cat">Hogar · 🔥 Oferta</span>
+        <div class="product-name">Dispensador de Jabón Inox</div>
+        <div class="product-desc">Dispensador automático por sensor, capacidad 400ml. Ideal para cocina y baño. Sin contacto.</div>
+        <div class="product-footer">
+          <span class="product-price">$650</span>
+          <a class="btn-wa" href="https://wa.me/59897222202?text=Hola%20Nexel%2C%20me%20interesa%20el%20Dispensador%20de%20Jab%C3%B3n%20Inox.%20%C2%BFEst%C3%A1%20disponible%3F" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            Consultar
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- TECNOLOGÍA -->
+    <div class="product-card" data-cat="tecnologia">
+      <div class="product-img">🎧</div>
+      <div class="product-body">
+        <span class="product-cat">Tecnología</span>
+        <div class="product-name">Auriculares Bluetooth TWS</div>
+        <div class="product-desc">True Wireless, cancelación de ruido pasiva, hasta 6hs de batería + estuche carga. Compatible iOS y Android.</div>
+        <div class="product-footer">
+          <span class="product-price">$1.490</span>
+          <a class="btn-wa" href="https://wa.me/59897222202?text=Hola%20Nexel%2C%20me%20interesan%20los%20Auriculares%20Bluetooth%20TWS.%20%C2%BFEst%C3%A1n%20disponibles%3F" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            Consultar
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card" data-cat="tecnologia">
+      <div class="product-img">🔋</div>
+      <div class="product-body">
+        <span class="product-cat">Tecnología</span>
+        <div class="product-name">Cargador USB-C 65W GaN</div>
+        <div class="product-desc">Carga rápida 65W, 3 puertos (USB-C + 2x USB-A). Compacto, compatible con notebooks, tablets y celulares.</div>
+        <div class="product-footer">
+          <span class="product-price">$980</span>
+          <a class="btn-wa" href="https://wa.me/59897222202?text=Hola%20Nexel%2C%20me%20interesa%20el%20Cargador%20USB-C%2065W%20GaN.%20%C2%BFEst%C3%A1%20disponible%3F" target="_blank">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+            Consultar
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- BANNER CTA -->
+<div class="banner" id="contacto">
+  <div class="banner-text">
+    <h2>¿No encontrás lo que buscás?</h2>
+    <p>Escribinos y te ayudamos a encontrarlo. Atención inmediata por WhatsApp.</p>
+  </div>
+  <a href="https://wa.me/59897222202?text=Hola%20Nexel%2C%20estoy%20buscando%20un%20producto%20y%20quisiera%20consultar" target="_blank" class="banner-cta">
+    <svg viewBox="0 0 24 24" fill="currentColor" style="width:18px;height:18px">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+    </svg>
+    Escribinos ahora
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">Nex<span style="color:var(--sky)">el</span></a>
+      <p>Lo que necesitás, cuando lo necesitás. Bazar, hogar, tecnología y más.</p>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/nexel.uy" target="_blank" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+          </svg>
+        </a>
+        <a href="https://www.facebook.com/share/1Ding9LzJe/" target="_blank" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://wa.me/59897222202" target="_blank" aria-label="WhatsApp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-links">
+      <h4>Categorías</h4>
+      <ul>
+        <li><a href="#productos">Bazar</a></li>
+        <li><a href="#productos">Hogar</a></li>
+        <li><a href="#productos">Tecnología</a></li>
+        <li><a href="#productos">Ofertas 🔥</a></li>
+      </ul>
+    </div>
+    <div class="footer-links">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="https://wa.me/59897222202" target="_blank">WhatsApp</a></li>
+        <li><a href="https://www.instagram.com/nexel.uy" target="_blank">Instagram</a></li>
+        <li><a href="https://www.facebook.com/share/1Ding9LzJe/" target="_blank">Facebook</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    © 2025 Nexel · Uruguay · Todos los derechos reservados
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a class="float-wa" href="https://wa.me/59897222202?text=Hola%20Nexel%2C%20quisiera%20consultar%20sobre%20un%20producto" target="_blank">
+  <svg viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+  </svg>
+  <span class="float-wa-text">WhatsApp</span>
+</a>
+
+<script>
+  function filterCat(cat, btn) {
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.product-card').forEach(card => {
+      const cats = card.dataset.cat || '';
+      card.style.display = (cat === 'todos' || cats.includes(cat)) ? 'flex' : 'none';
+    });
+  }
+</script>
+
+</body>
+</html>
